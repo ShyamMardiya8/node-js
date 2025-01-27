@@ -26,7 +26,7 @@ const fs = require("fs")
 
 // for entering data in file appendFileSync for sync operation
 
-fs.appendFile("./demo.txt", `data is Log in ${Date.now()}\n`, ((err,result) => console.log(result)))
+// fs.appendFile("./demo.txt", `data is Log in ${Date.now()}\n`, ((err,result) => console.log(result)))
 
 // const state = fs.statSync("./demo.txt")
 // console.log(state)
