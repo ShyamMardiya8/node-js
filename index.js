@@ -1,17 +1,24 @@
 const http = require("http")
 const fs = require("fs")
+const url = require("url")
 
 const server = http.createServer((req, res) => {
+    if (req.url === '/favicon.ico') return res.end()
     const log = `received data from client ${Date.now()} and url is ${req.url}\n`
-    fs.appendFile("./demo.txt",log, ((err, result) => {
-       switch(req.url) {
-       case "/" :  res.end("home Page")
-       break;
-       case "/about" : res.end("my name is shyam")
-       break;
-       default :
-       res.end("404")
-    }
+    const myUrl = url.parse(req.url, true)
+    console.log(myUrl)
+    fs.appendFile("./demo.txt", log, ((err, result) => {
+        switch (myUrl.pathname) {
+            case "/":
+                res.end(`home`)
+                break;
+            case "/about":
+                const userName = myUrl.query.myname
+                res.end(`my name is ${userName}`)
+                break;
+            default:
+                res.end("404")
+        }
     }))
 })
 
