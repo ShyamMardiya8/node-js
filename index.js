@@ -25,3 +25,5 @@ const server = http.createServer((req, res) => {
 server.listen(3000, () => {
     console.log(`server is ready http://localhost:3000`)
 })
+
+// how to get method in using req.method in node js 
