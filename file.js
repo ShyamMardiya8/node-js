@@ -4,17 +4,17 @@ const fs = require("fs")
 // how to read file usinf fs in node js it will be two types of read file method first is readfileSync for sync program and second is readFile for async operation
 
 
-// const read = fs.readFileSync("./index.js", "utf-8")
-// console.log(read)
+const read = fs.readFileSync("./index.js", "utf-8")
+console.log(read)
 
-// fs.readFile("./index.js", "utf-8", (err, result) => {
-//     if (err) {
-//         console.log(err)
-//     }
-//     else{
-//         console.log(result)
-//     }
-// })
+fs.readFile("./index.js", "utf-8", (err, result) => {
+    if (err) {
+        console.log(err)
+    }
+    else{
+        console.log(result)
+    }
+})
 
 
 // how to create file using node js in fs using it will work using writeSync for sync filling and second is write for async operation
