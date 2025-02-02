@@ -1,6 +1,7 @@
 const express = require("express")
 const users = require("./MOCK_DATA.json")
 const fs = require("fs")
+const { json } = require("stream/consumers")
 const app = express()
 const port = 3000
 app.use(express.json())
@@ -37,12 +38,7 @@ app.route("/api/user/:id")
     const user = users.find((i) => i.id === id)
     return res.json(user)
 })
-.put((req, res) => {
-    return res.json({ status : "pending"})
-})
-.delete((req, res) => {
-    return res.json({ status : "pending"})
-})
+
 
 app.post("/api/user", (req, res) => {
     const body = req.body
@@ -53,6 +49,27 @@ app.post("/api/user", (req, res) => {
    
 })
 
+app.put("/api/user/:id", (req, res) => {
+    const id = Number(req.params.id)
+    console.log("data get from body", newUserData)
+    const editUser = users.map((i) => i.id === id ? {...i, ...newUserData} : i)
+    fs.writeFile("./MOCK_DATA.json", JSON.stringify(editUser), ((err, result) => {
+        return res.send({status : "success"})
+    }))
+})
+
+app.delete("/api/user/:id", (req, res) => {
+   const id = Number(req.params.id)
+   const deletedUser = users.filter((i) => i.id !== id)
+   fs.writeFile("./MOCK_DATA.json", JSON.stringify(deletedUser), ((err, result) => {
+    if(err){
+        return res.send({status : "failed "})
+    }
+    else{
+        return res.send({status : "success"})
+    }
+   }))
+})
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`)
