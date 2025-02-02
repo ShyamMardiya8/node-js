@@ -2,7 +2,7 @@ const express = require("express")
 const users = require("./MOCK_DATA.json")
 const fs = require("fs")
 const { json } = require("stream/consumers")
-const app = express()
+const app = express() 
 const port = 3000
 app.use(express.json())
 app.use(express.urlencoded({ extended : false}))
