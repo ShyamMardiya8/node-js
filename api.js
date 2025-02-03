@@ -29,6 +29,7 @@ app.get("/user", (req, res) => {
 })
 
 app.get('/api/user', (req, res) => {
+    res.setHeader('x-myName', 'shyam')
     return res.json(users)
 })
 
@@ -84,3 +85,4 @@ app.delete("/api/user/:id", (req, res) => {
 app.listen(port, () => {
     console.log(`http://localhost:${port}`)
 })
+

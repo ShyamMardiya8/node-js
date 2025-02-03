@@ -5,3 +5,10 @@ time is $1738597792756 path name is /api/user/1002 request method is POST
 time is $1738597797824 path name is /api/user/1003 request method is POST
 time is $1738597811633 path name is /api/user/999 request method is POST
 time is $1738597817813 path name is /api/user/999 request method is GET
+time is $1738598590378 path name is /api/user/999 request method is GET
+time is $1738598622916 path name is /api/user/999 request method is GET
+time is $1738598649754 path name is /api/user/999 request method is GET
+time is $1738598654694 path name is /api/user/999 request method is GET
+time is $1738598661499 path name is /api/user request method is GET
+time is $1738598784764 path name is /api/user request method is GET
+time is $1738598789342 path name is /api/user request method is GET
