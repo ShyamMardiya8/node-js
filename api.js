@@ -47,15 +47,21 @@ app.route("/api/user/:id")
 .get((req, res) => {
     const id = Number(req.params.id)
     const user = users.find((i) => i.id === id)
-    return res.json(user)
+    if (!user) {
+        res.status(404).json({msg : "user is not existed"})
+    }
+    return res.status(200).json(user)
 })
 
 
 app.post("/api/user", (req, res) => {
     const body = req.body
+    if (!body.first_name || !body.last_name || !body.email || !body.gender || !body.job_title) {
+        return res.status(400).json({msg : "please fill all field"})
+    }
     users.push({...body, id : users.length + 1})
     fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), ((err, result) => {
-       return res.json({status: "success"})
+       return res.status(201).json({status: "success"})
     }) )
    
 })

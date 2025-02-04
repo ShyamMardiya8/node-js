@@ -12,3 +12,16 @@ time is $1738598654694 path name is /api/user/999 request method is GET
 time is $1738598661499 path name is /api/user request method is GET
 time is $1738598784764 path name is /api/user request method is GET
 time is $1738598789342 path name is /api/user request method is GET
+time is $1738682132582 path name is /ws request method is GET
+time is $1738682141557 path name is /ws request method is GET
+time is $1738682159032 path name is /ws request method is GET
+time is $1738682247058 path name is /api/user request method is DELETE
+time is $1738682266347 path name is /api/user request method is DELETE
+time is $1738682276163 path name is /api/user request method is GET
+time is $1738682307482 path name is /api/user request method is GET
+time is $1738682336424 path name is /api/user/1001 request method is GET
+time is $1738682500547 path name is /api/user request method is GET
+time is $1738682510588 path name is /api/user request method is POST
+time is $1738682856975 path name is /api/user request method is POST
+time is $1738683079502 path name is /api/user/10111 request method is POST
+time is $1738683087483 path name is /api/user/10111 request method is GET
