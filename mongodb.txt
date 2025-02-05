@@ -1,0 +1,13 @@
+Mongo db documention
+
+no-sql document based database 
+strong support for Aggration Pips
+works on BSON formet
+best for node application
+
+
+how to get all database using commmand ==> show dbs
+if use any database commmand ==> use database_name
+if show collection ==> show collection
+if you getting data from db using ==> db.collection_name.find({})
+if you enter some data in mongodb ==> db.insert({})
