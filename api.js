@@ -41,8 +41,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/shyam1')
 .then(() => console.log("mongodb connected"))
 .catch((err) => console.log(err.message))
 
-
-
 app.use(express.json())
 app.use(express.urlencoded({ extended : false}))
 app.use((req, res, next) => {
@@ -55,10 +53,11 @@ app.use((req, res, next) => {
     next()
 })
 
-app.get("/user", (req, res) => {
+app.get("/user", async (req, res) => {
+    const usersData = await User.find({});
     const html =
         `
-    <ul>${users.map((i) => (
+    <ul>${usersData.map((i) => (
 
             `<li>${i.first_name}</li>`
 
@@ -66,9 +65,9 @@ app.get("/user", (req, res) => {
     return res.send(html)
 })
 
-app.get('/api/user', (req, res) => {
-    res.setHeader('x-myName', 'shyam')
-    return res.json(users)
+app.get('/api/user',async (req, res) => {
+  const userData = await User.find({});
+    return res.json(userData)
 })
 
 // app.get('/api/user/:id', (req, res) => {
@@ -82,10 +81,12 @@ app.get('/api/user', (req, res) => {
 
 
 app.route("/api/user/:id")
-.get((req, res) => {
-    const id = Number(req.params.id)
-    const user = users.find((i) => i.id === id)
-    if (!user) {
+.get(async (req, res) => {
+  const userData = await User.findById(req.params.id);
+
+    // const id = Number(req.params.id)    
+    // const user = users.find((i) => i.id === id)
+    if (!userData) {
         res.status(404).json({msg : "user is not existed"})
     }
     return res.status(200).json(user)
@@ -115,26 +116,55 @@ app.post("/api/user", async (req, res) => {
 });
 
 
-app.put("/api/user/:id", (req, res) => {
-    const id = Number(req.params.id)
-    console.log("data get from body", newUserData)
-    const editUser = users.map((i) => i.id === id ? {...i, ...newUserData} : i)
-    fs.writeFile("./MOCK_DATA.json", JSON.stringify(editUser), ((err, result) => {
-        return res.send({status : "success"})
-    }))
+app.put("/api/user/:id", async (req, res) => {
+    // const id = Number(req.params.id)
+    // console.log("data get from body", newUserData)
+    // const editUser = users.map((i) => i.id === id ? {...i, ...newUserData} : i)
+    // fs.writeFile("./MOCK_DATA.json", JSON.stringify(editUser), ((err, result) => {
+    //     return res.send({status : "success"})
+    // }))
+    const newUserData = {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        job_title: req.body.job_title,
+        gender: req.body.gender
+      };
+        try{
+            const userData = await User.findByIdAndUpdate(req.params.id, newUserData, {
+                new: true,
+              });
+              if (!userData) {
+                return res.status(404).json({ message: "failure" });
+              }
+              return res.json({ message: "successfully Updated" });
+        }
+        catch(err){
+            console.log(err.message)
+        }
 })
 
-app.delete("/api/user/:id", (req, res) => {
-   const id = Number(req.params.id)
-   const deletedUser = users.filter((i) => i.id !== id)
-   fs.writeFile("./MOCK_DATA.json", JSON.stringify(deletedUser), ((err, result) => {
-    if(err){
-        return res.send({status : "failed "})
-    }
-    else{
-        return res.send({status : "success"})
-    }
-   }))
+app.delete("/api/user/:id", async (req, res) => {
+//    const id = Number(req.params.id)
+//    const deletedUser = users.filter((i) => i.id !== id)
+//    fs.writeFile("./MOCK_DATA.json", JSON.stringify(deletedUser), ((err, result) => {
+//     if(err){
+//         return res.send({status : "failed "})
+//     }
+//     else{
+//         return res.send({status : "success"})
+//     }
+//    }))
+try{
+    const userData = await User.findByIdAndDelete(req.params.id)
+    if (!userData) {
+         res.status(404).json({message : "id is required to delete"})
+      }
+      res.status(200).json({message : "successfully delete"})
+}
+catch(err){
+    console.log(err.message)
+}
 })
 
 app.listen(port, () => {
