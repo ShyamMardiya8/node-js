@@ -5,7 +5,7 @@ const fs = require("fs")
 
 
 const read = fs.readFileSync("./index.js", "utf-8")
-console.log(read)
+// console.log(read)
 
 // fs.readFile("./index.js", "utf-8", (err, result) => {
 //     if (err) {
